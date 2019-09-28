@@ -301,25 +301,7 @@ def gunControl():
     print(sol)
     count = sol.count(True)
     print(count)
-    """
-    def minRemain(choice,set,n,remain):
-        if (remain == 0 or n==0):
-            return choice,remain
-        c1,r1 = minRemain('0'+choice,set,n-1,remain);
-        if (remain >= visited[set[n-1]]):
-            c2,r2 = minRemain('1'+choice,set,n-1,remain-visited[set[n-1]])    
-            if (r1<r2):
-                return c1,r1
-            else:
-                return c2,r2
-        else:
-            return c1,r1
-    sel,remain = minRemain("",gun,len(gun),types['fuel'])
-    print("remain",remain)
-    print(sel)
-    count = sel.count('1')
-    #print(count)
-    """
+    
     ans = ""
     ans += '{'
     ans += '\"hits\": ['
