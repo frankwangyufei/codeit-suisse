@@ -233,8 +233,10 @@ def gunControl():
         if dead:
             gun.append(curr)
             sel.append(False)
-    print(visited)
+    #print(visited)
     print(gun)
+    for i in range(len(gun)):
+        print(visited[gun[i]])
     print(len(gun))
     def minRemain(choice,set,n,remain):
         if (remain == 0 or n==0):
@@ -270,4 +272,5 @@ def gunControl():
                 ans += ','
     ans += ']'
     ans += '}'
-    return(ans)
+    print(ans)
+    return ans
