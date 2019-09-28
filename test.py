@@ -101,7 +101,8 @@ def dep_resolve(node, resolved, unresolved):
             return
          dep_resolve(edge, resolved, unresolved)
    resolved.append(node)
-   unresolved.remove(node
+   unresolved.remove(node)
+   
 class Node:
   def __init__(self, name):
     self.name = name
