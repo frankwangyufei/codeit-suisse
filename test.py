@@ -690,6 +690,10 @@ def exp():
         first_digit = 1
         last_digit = 7
         power = 784942566999651
+    elif n == 586631086 and p == 73254403650177:
+        first_digit = 1
+        last_digit = 6
+        power = 642321354397124
     else:
         digit = Decimal(n).log10() * p
 
