@@ -154,7 +154,7 @@ def gs():
         nodes[pair['dependentOn']] = Node(pair['dependentOn']) 
         extra.append(pair['dependentOn'])
       nodes[pair['dependee']].addEdge(nodes[pair['dependentOn']])
-    for item in remove_node:
+    for item in remove:
         remove_node(item)
     graph = {}
 
