@@ -618,13 +618,24 @@ def exp():
     n = input['n']
     p = input['p']
     print(n, p)
+    if n ==0:
 
-    digit = math.log(n, 10) * p
+        first_digit = 0
+        last_digit = 0 
+        digit = 1
 
-    power = int(digit) + 1
-    first_digit = digit % 1
-    first_digit = int(10**first_digit)
-    last_digit = pow(n, p, 10) 
+    if n ==1:
+
+        first_digit = 1
+        last_digit = 1
+        digit = 1
+    else:
+        digit = math.log(n, 10) * p
+
+        power = int(digit) + 1
+        first_digit = digit % 1
+        first_digit = int(10**first_digit)
+        last_digit = pow(n, p, 10) 
     result = [first_digit, power, last_digit]
     ret = {'result': result}
     print(ret)
