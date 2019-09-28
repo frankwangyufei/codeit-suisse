@@ -397,7 +397,7 @@ def comp():
     patterns = input["patterns"]
 
     print(patterns)
-    result["result"] = solvecomp(s, patterns, 5000)
+    result["result"] = solvecomp(s, patterns, 1000)
     return result
 
 
