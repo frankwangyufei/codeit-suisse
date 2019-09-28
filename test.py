@@ -141,8 +141,11 @@ def gs():
 
     for module in input['modules']:
       nodes[module] = Node(module)
-
+    extra = []
     for pair in input['dependencyPairs']:
+      if pair['dependee'] not in nodes[module]:
+        nodes[pair['dependee']] = Node(pair['dependee']) 
+      extra.append(pair['dependee'])
       nodes[pair['dependee']].addEdge(nodes[pair['dependentOn']])
 
     graph = {}
@@ -162,4 +165,9 @@ def gs():
       if node not in resolved:
         dep_resolve(node, resolved, unresolved)
     resolved = [item.name for item in resolved]
+    for item in extra:
+        try:
+            resolved.remove(item)
+        except ValueError:
+            pass
     return format(resolved)
