@@ -563,7 +563,7 @@ def sittable(i, union_set, enemies_set, tables):
 
 
 @app.route('/wedding-nightmare', methods=['POST'])
-def wedding-nightmare():
+def weddingnightmare():
     cases = request.get_json(force=True)
     results = []
 
