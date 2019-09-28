@@ -189,7 +189,7 @@ def gs():
 
 
 
-@app.route('/generateSequence', methods=['POST'])
+@app.route('/sentiment-analysis', methods=['POST'])
 def sa():
 
     input = request.get_json(force=True)
