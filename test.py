@@ -527,7 +527,46 @@ def max1c():
     print(ans)
     return ans
 
-
+@app.route('/maximise_2', methods=['POST'])
+def max2():
+    types = request.get_json(force=True)
+    print(types)
+    risk = types['risk']
+    multiplier = risk
+    for stock in types['stocks']:
+        if (stock[3] > multiplier):
+            multiplier = stock[3]
+    multiplier += 1
+    capital = types['startingCapital']
+    numStocks = len(types['stocks'])
+    print(numStocks, capital, risk, multiplier)
+    
+    #similar to gun control, uses dp
+    dp = [[0 for x in range(capital*multiplier+risk+1)] for y in range(numStocks+1)] 
+    for i in range(numStocks+1):
+       dp[i][0] = 0;
+    for i in range(capital*multiplier+risk+1):
+        dp[0][i] = 0;
+    for i in range(numStocks):
+        for capacity in range(1,capital*multiplier+risk+1):
+            maxWO = dp[i][capacity];
+            maxW = 0
+            currCost = types['stocks'][i][2]*multiplier+types['stocks'][i][3]
+            if (capacity%multiplier >= types['stocks'][i][3] and capacity//multiplier >= types['stocks'][i][2]):
+                remain = capacity-currCost
+                maxW = types['stocks'][i][1] + dp[i][remain]
+            dp[i+1][capacity] = max(maxWO,maxW)
+    #print(dp)
+    selected = []
+    cap = capital*multiplier+risk
+    for i in range(numStocks, 0,-1):
+        if (dp[i][cap] > dp[i-1][cap]):
+            cap -= types['stocks'][i-1][2]*multiplier+types['stocks'][i-1][3]
+            selected.append(types['stocks'][i-1][0])
+    ans = {"profit":dp[numStocks][capital*multiplier+risk],\
+           "portfolio":selected}
+    print(ans)
+    return ans
 
 def find(data, i):
     if i != data[i]:
