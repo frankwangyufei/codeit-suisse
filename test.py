@@ -11,11 +11,12 @@ def hello_world():
 @app.route('/chessgame', methods=['POST'])
 def chessgame():
     data = request.get_json(force=True)
+    data = format(data)
     a = []
     size = 0
     kI = 1000
     kJ = 1000
-    for char in range(len(format(data))):
+    for char in range(len(data)):
         if (data[char] == '['):
             quoteCount = 0
             l = []
