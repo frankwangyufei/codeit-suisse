@@ -194,6 +194,7 @@ def gunControl():
     sel = []
     curr = 0;
     visited = [0]*(x*y);
+    queue = []
     queue.append(curr)
     visited[curr] = 1;
     while queue:
