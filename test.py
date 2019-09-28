@@ -84,4 +84,4 @@ def chessgame():
                 s[7] = False;
             else:
                 count = count+1
-    return format(data)+" "+str(count)+' '+str(data)
+    return str(count)
