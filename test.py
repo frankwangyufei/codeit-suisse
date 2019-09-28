@@ -148,7 +148,7 @@ def gs():
     remove = []
     for pair in input['dependencyPairs']:
       if pair['dependentOn'] == pair['dependee']:
-        next
+        continue
       if pair['dependee'] not in nodes:
         nodes[pair['dependee']] = Node(pair['dependee']) 
         extra.append(pair['dependee'])
