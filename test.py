@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request # <- added
 import json
 import requests
+from string import punctuation
 
 
 app = Flask(__name__)
@@ -188,6 +189,8 @@ def gs():
 
 
 
+def strip_punctuation(s):
+    return ''.join(c for c in s if c not in punctuation)
 
 @app.route('/sentiment-analysis', methods=['POST'])
 def sa():
@@ -200,7 +203,7 @@ def sa():
     result = {}
     result['response'] = []
     for review in input['reviews']:
-      review = review.replace(".", "")
+      review = strip_punctuation(review)
       files = {
          'text': (None, review),
       }
