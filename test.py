@@ -447,6 +447,11 @@ def max1b():
         fixProfit += stock[1]
     capital -= fixCost
     print(numStocks, fixCost, capital)
+    if (capital < 0):    
+        ans = {"profit":0,
+               "portfolio":[]}
+        print(ans)
+        return ans
     
     #similar to gun control, uses dp
     dp = [[0 for x in range(capital+1)] for y in range(numStocks+1)] 
@@ -483,7 +488,7 @@ def max1b():
     profit = dp[numStocks][capital]+fixProfit
     for i in range(numStocks):
         selected.append(types['stocks'][i][0])
-    ans = {"profit":profit,\
+    ans = {"profit":profit,
            "portfolio":selected}
     print(ans)
     return ans
