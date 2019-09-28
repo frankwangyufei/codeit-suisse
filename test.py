@@ -202,7 +202,7 @@ def sa():
     result = {}
     result['response'] = []
     for review in input['reviews']:
-      review = strip_punctuation(review[100:])
+      review = strip_punctuation(review[:100])
       review = review + '.'
       print(review)
       files = {
