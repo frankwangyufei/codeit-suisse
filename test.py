@@ -399,3 +399,43 @@ def comp():
     print(patterns)
     result["result"] = solvecomp(s, patterns, 9999)
     return result
+
+
+@app.route('/maximise_1a', methods=['POST'])
+def max1a():
+    types = request.get_json(force=True)
+    print(types)
+    capital = types['startingCapital']
+    for stocks in types['stocks']:
+        print(stocks)
+    numStocks = len(types['stocks'])
+    print(numStocks, capital)
+    
+    #similar to gun control, uses dp
+    dp = [[0 for x in range(capital+1)] for y in range(numStocks+1)] 
+    for i in range(numStocks+1):
+       dp[i][0] = 0;
+    for i in range(capital+1):
+        dp[0][i] = 0;
+    for i in range(numStocks):
+        for capacity in range(1,capital+1):
+            maxWO = dp[i][capacity];
+            maxW = 0
+            currCost = types['stocks'][i][2]
+            if (capacity >= currCost):
+                remain = capacity-currCost
+                maxW = types['stocks'][i][1] + dp[i][remain]
+            dp[i+1][capacity] = max(maxWO,maxW)
+    print(dp)
+    print("sol",dp[numStocks][capital])
+    selected = []
+    cap = capital
+    for i in range(numStocks, 0,-1):
+        if (dp[i][cap] > dp[i-1][cap]):
+            cap -= types['stocks'][i-1][2]
+            selected.append(types['stocks'][i-1][0])
+    ans = {"profit":dp[numStocks][capital],\
+           "portfolio":selected}
+    
+    with open('output.json','w') as f:
+        json.dump(ans,f)
