@@ -4,6 +4,7 @@ from flask import Response
 import json
 import requests
 from string import punctuation
+import random
 
 
 app = Flask(__name__)
@@ -338,6 +339,14 @@ def gunControl():
     ans += '}'
     print(ans)
     return json.loads(ans)
+@app.route('/lottery', methods=['GET'])
+def lottery():
+    dict1 = []
+    for i in range(10):
+        dict1.append(random.randint(1,100))
+    return Response(json.dumps(dict1), mimetype='application/json')
+
+
 @app.route('/lottery', methods=['GET'])
 def lottery():
     dict1 = [1,1,1,26,1,1,51,51,51,51]
