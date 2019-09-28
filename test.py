@@ -83,4 +83,4 @@ def chessgame():
                 s[7] = False;
             else:
                 count = count+1
-    return str(size)+" "+str(count)
+    return format(data)+str(size)+" "+str(count)
