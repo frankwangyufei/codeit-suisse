@@ -525,3 +525,88 @@ def max1c():
            "portfolio":selected}
     print(ans)
     return ans
+
+
+
+def find(data, i):
+    if i != data[i]:
+        data[i] = find(data, data[i])
+    return data[i]
+def union(data, i, j):
+    pi, pj = find(data, i), find(data, j)
+    if pi != pj:
+        data[pi] = pj
+def connected(data, i, j):
+    return find(data, i) == find(data, j)
+
+def sittable(i, union_set, enemies_set, tables):
+  allinvalid = True
+  if i == len(union_set):
+    return (True, tables)
+  for (j, table) in enumerate(tables):
+    valid = True
+    for group in table:
+      if (list(union_set.keys())[i], group) in enemies_set:
+        valid = False
+      if (group, list(union_set.keys())[i]) in enemies_set:
+        valid = False
+    if valid:
+      allinvalid = False
+      print(str(list(union_set.keys())[i]) + " -> " + str(j))
+      table.append(list(union_set.keys())[i])
+      ret = sittable(i + 1, union_set, enemies_set, tables)
+      if ret[0]:
+        return (True, ret[1])
+      table.remove(list(union_set.keys())[i])
+  return (False, None)
+
+
+
+@app.route('/wedding-nightmare', methods=['POST'])
+def max1c():
+    cases = request.get_json(force=True)
+    results = []
+
+    for case in cases:
+      result = {}
+      result["test_case"] = case["test_case"]
+      guests = [i for i in range(case["guests"])]
+      print(guests)
+      for pair in case["friends"]:
+        union(guests, pair[0]-1, pair[1]-1)
+
+      for pair in case["families"]:
+        union(guests, pair[0]-1, pair[1]-1)
+
+
+
+      union_set = {}
+      for i in range(case["guests"]):
+        if find(guests, i) not in union_set:
+          union_set[find(guests, i)] = []
+        union_set[find(guests, i)].append(i)
+      enemies = case["enemies"]
+      tables = []
+      for i in range(case["tables"]):
+        tables.append([])
+      enemies_set = [(find(guests, pair[0]-1), find(guests, pair[1]-1)) for pair in enemies]
+      union_set = {}
+      for i in range(case["guests"]):
+        if find(guests, i) not in union_set:
+          union_set[find(guests, i)] = []
+        union_set[find(guests, i)].append(i)
+      tables[0].append(list(union_set.keys())[0])
+
+      ans = sittable(1, union_set, enemies_set, tables)
+      if ans[0] == False:
+        result["satisfiable"] = False
+        result["allocation"] = []
+      else:
+        result["satisfiable"] = True
+        result['allocation'] = []
+        for (i, table) in enumerate(ans[1]):
+          for group in table:
+            result['allocation'] += ([[number + 1, i + 1] for number in union_set[group]])
+      results.append(result)
+    print(results)
+    return results
