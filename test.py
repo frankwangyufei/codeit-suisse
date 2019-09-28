@@ -187,6 +187,7 @@ def gs():
 @app.route('/gun-control', methods=['POST'])
 def gunControl():
     types = request.get_json(force=True)
+    print(types)
     y = len(types['grid'])
     x = len(types['grid'][0])
     #print(x,y)
