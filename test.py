@@ -19,7 +19,7 @@ def chessgame():
         if (data[char] == '['):
             quoteCount = 0
             l = []
-        if (data[char] == '\"'):
+        if (data[char] == '\"' or data[char] == '\'' ):
             if (quoteCount%2 == 0):
                 if (data[char+1] == 'K'):
                     kJ = quoteCount//2+1
@@ -83,4 +83,4 @@ def chessgame():
                 s[7] = False;
             else:
                 count = count+1
-    return format(data)+str(size)+" "+str(count)
+    return str(count)
