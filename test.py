@@ -127,7 +127,7 @@ def dfs(graph, start, end):
 def remove_node(node):
   if node.name in nodes:
     del nodes[node.name]
-  for (key, item) in nodes.items():
+  for (key, item) in gs.nodes.items():
     try:
       item.edges.remove(node)
     except ValueError:
@@ -137,7 +137,7 @@ nodes = {}
 
 @app.route('/generateSequence', methods=['POST'])
 def gs():
-
+    global nodes
     nodes = {}
     input = request.get_json(force=True)
     print(input)
@@ -148,7 +148,7 @@ def gs():
     remove = []
     for pair in input['dependencyPairs']:
       if pair['dependentOn'] == pair['dependee']:
-        continue
+        next
       if pair['dependee'] not in nodes:
         nodes[pair['dependee']] = Node(pair['dependee']) 
         extra.append(pair['dependee'])
