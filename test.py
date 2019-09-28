@@ -835,20 +835,13 @@ def typing():
         sum += min+1
         queue.insert(bestPos,i)
         #print(queue,sum,inc,bestPos)
-    s = "{ type: \'INPUT\', value: \'"
-    s += types[queue[0]]
-    s += "\' },"
+    s = {"type":'INPUT',"value":types[queue[0]]}
     order = []
     order.append(s)
     for i in range(1,len(queue)):
-        s = "{ type: \'COPY\', value: \'"
-        s += types[queue[i-1]]
-        s += "\' }," 
-        s = "{ type: \'TRANSFORM\', value: \'"
-        s += types[queue[i]]
-        s += "\' }"
-        if (i != len(queue)-1):
-            s += ','
+        s = {"type":'COPY',"value":types[queue[i-1]]}
+        order.append(s)
+        s = {"type":'TRANSFORM',"value":types[queue[i]]}
         order.append(s)
     ans = {"cost":sum,"steps":order}
     #print(ans)
