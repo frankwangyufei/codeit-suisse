@@ -5,6 +5,7 @@ import json
 import requests
 from string import punctuation
 import random
+import math
 
 
 app = Flask(__name__)
@@ -610,3 +611,21 @@ def weddingnightmare():
       results.append(result)
     print(results)
     return Response(json.dumps(results), mimetype='application/json')
+
+app.route('/exponent', methods=['POST'])
+def exponent():
+    cases = request.get_json(force=True)
+    n = input['n']
+    p = input['p']
+    print(n, p)
+
+    digit = math.log(n, 10) * p
+
+    power = int(digit) + 1
+    first_digit = digit % 1
+    first_digit = int(10**first_digit)
+    last_digit = pow(n, p, 10) 
+    result = [first_digit, power, last_digit]
+    ret = {result: result}
+    print(ret)
+    return Response(json.dumps(ret), mimetype='application/json')
