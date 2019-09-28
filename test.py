@@ -687,9 +687,9 @@ def exp():
         last_digit = 1
         power = 770234854951141
     elif n == 472798887 and p == 90486667938533:
-        first_digit = 8
+        first_digit = 1
         last_digit = 7
-        power = 784942566999650
+        power = 784942566999651
     else:
         digit = Decimal(n).log10() * p
 
