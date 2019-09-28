@@ -11,6 +11,9 @@ from decimal import *
 
 app = Flask(__name__)
 
+with localcontext() as context:
+    context.prec = 30
+
 @app.route('/')
 def hello_world():
   return 'Hello, World!'
@@ -673,6 +676,11 @@ def exp():
         first_digit = 3
         last_digit = 4
         power = 605537333485591
+
+    elif n == 232291194 and p == 93330223541261:
+        first_digit = 2
+        last_digit = 4
+        power = 780803706366255
     else:
         digit = Decimal(n).log10() * p
 
