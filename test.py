@@ -615,8 +615,8 @@ def weddingnightmare():
 @app.route('/exponent', methods=['POST'])
 def exp():
     input = request.get_json(force=True)
-    n = input['n']
-    p = input['p']
+    n = int(input['n'])
+    p = int(input['p'])
     print(n, p)
     if n ==0:
 
@@ -624,7 +624,7 @@ def exp():
         last_digit = 0 
         digit = 1
 
-    if n ==1:
+    elif n ==1:
 
         first_digit = 1
         last_digit = 1
