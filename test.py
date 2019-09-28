@@ -203,6 +203,7 @@ def sa():
     result['response'] = []
     for review in input['reviews']:
       review = strip_punctuation(review)
+      review = review + '.'
       print(review)
       files = {
          'text': (None, review),
@@ -210,7 +211,7 @@ def sa():
       response = requests.post('https://api.deepai.org/api/sentiment-analysis', headers=headers, files=files)
       json = response.json()['output']
 
-      if json[0] == "Verypositive" or json[0] == "Positive":
+      if json[0] == "Verypositive" or json[0] == "Positive" or json[0] == "Neutral":
         result['response'].append("positive")
       else:
         result['response'].append("negative")
