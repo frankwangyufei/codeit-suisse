@@ -345,3 +345,37 @@ def lottery():
     for i in range(10):
         dict1.append(random.randint(1,100))
     return Response(json.dumps(dict1), mimetype='application/json')
+
+
+def solvep1(n, t):
+  if t > 2*n:
+
+    if solvep1(n-2, t-2*n-1) == -1:
+      return -1
+    else:
+      return solvep1(n-2, t-2*n-1) + 2
+  if t%n == 1:
+    return -1
+  else:
+    return 3
+
+@app.route('/readyplayerone', methods=['GET'])
+def p1():
+    input = request.get_json(force=True)
+    n = input["maxChoosableInteger"]
+    t = input["desiredTotal"]
+        
+    print(n, t)
+
+    output = {}
+
+    if (n*(n+1))/2 < t:
+      output["res"] = -1
+      print(output)
+      
+    else:
+      
+      output["res"] = solve(n, t)
+      print(output["res"])
+    return output
+
