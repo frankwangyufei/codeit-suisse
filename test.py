@@ -406,8 +406,6 @@ def max1a():
     types = request.get_json(force=True)
     print(types)
     capital = types['startingCapital']
-    for stocks in types['stocks']:
-        print(stocks)
     numStocks = len(types['stocks'])
     print(numStocks, capital)
     
@@ -425,9 +423,7 @@ def max1a():
             if (capacity >= currCost):
                 remain = capacity-currCost
                 maxW = types['stocks'][i][1] + dp[i][remain]
-            dp[i+1][capacity] = max(maxWO,maxW)
-    print(dp)
-    print("sol",dp[numStocks][capital])
+            dp[i+1][capacity] = max(maxWO,maxW)        
     selected = []
     cap = capital
     for i in range(numStocks, 0,-1):
@@ -436,6 +432,6 @@ def max1a():
             selected.append(types['stocks'][i-1][0])
     ans = {"profit":dp[numStocks][capital],\
            "portfolio":selected}
-    
+    print(ans)   
     with open('output.json','w') as f:
         json.dump(ans,f)
