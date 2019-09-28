@@ -673,7 +673,7 @@ def exp():
         digit = Decimal(n).log10() * p
 
         power = int(digit) + 1
-        first_digit = digit.remainder_near(1)
+        first_digit = digit % 1
         first_digit = int(pow(10,first_digit))
         last_digit = int(pow(Decimal(n), p, 10))
     result = [first_digit, power, last_digit]
