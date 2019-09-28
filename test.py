@@ -472,23 +472,17 @@ def max1b():
     selected = []
     cap = capital
     i = numStocks
-    while (cap > 0):
-        curr = types['stocks'][i-1]
-        last = types['stocks'][i-2]
-        print(cap, selected,curr,last)
-        if (cap >= curr[2] and dp[i][cap] == curr[1]+dp[i][cap-curr[2]]):
-            cap -= curr[2]
-            selected.append(curr[0])
-        elif (cap >= last[2] and dp[i][cap] == last[1]+dp[i-1][cap-last[2]]):
-            i -= 1
-            cap -= last[2]
-            selected.append(last[0])
+    while (cap > 0 and i > 0):
+        print(i,cap, selected)
+        if (cap >= types['stocks'][i-1][2] and dp[i][cap] == types['stocks'][i-1][1]+dp[i][cap-types['stocks'][i-1][2]]):
+            cap -= types['stocks'][i-1][2]
+            selected.append(types['stocks'][i-1][0])
         else:
             i -= 1
     profit = dp[numStocks][capital]+fixProfit
     for i in range(numStocks):
         selected.append(types['stocks'][i][0])
-    ans = {"profit":profit,
+    ans = {"profit":profit,\
            "portfolio":selected}
     print(ans)
     return ans
