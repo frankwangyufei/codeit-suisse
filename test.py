@@ -1,6 +1,9 @@
 from flask import Flask
 from flask import request # <- added
 import json
+import requests
+from string import punctuation
+
 
 app = Flask(__name__)
 
@@ -183,6 +186,37 @@ def gs():
         except ValueError:
             pass
     return format(resolved)
+
+
+
+def strip_punctuation(s):
+    return ''.join(c for c in s if c not in punctuation)
+
+@app.route('/sentiment-analysis', methods=['POST'])
+def sa():
+
+    input = request.get_json(force=True)
+    headers = {
+        'api-key': 'f96743df-2e48-4e7b-9532-b20b1242dece',
+    }
+    result = {}
+    result['response'] = []
+    for review in input['reviews']:
+      review = strip_punctuation(review[:500])
+      review = review + '.'
+      print(review)
+      files = {
+         'text': (None, review),
+      }
+      response = requests.post('https://api.deepai.org/api/sentiment-analysis', headers=headers, files=files)
+      json = response.json()['output']
+
+      if json[0] == "Verypositive" or json[0] == "Positive" or json[0] == "Neutral":
+        result['response'].append("positive")
+      else:
+        result['response'].append("negative")
+    return result
+
 
 @app.route('/gun-control', methods=['POST'])
 def gunControl():
