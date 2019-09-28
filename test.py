@@ -339,4 +339,5 @@ def gunControl():
     return json.loads(ans)
 @app.route('/lottery', methods=['GET'])
 def lottery():
-    return json.loads("[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]")
+    dic1 = [1,1,1,1,1,1,1,1,1,1]
+    return Response(json.dumps(dict1), mimetype='application/json')
