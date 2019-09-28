@@ -125,18 +125,20 @@ def dfs(graph, start, end):
             fringe.append((next_state, path+[next_state]))
 
 def remove_node(node):
-  if node.name in nodes:
-    del nodes[node.name]
-  for (key, item) in nodes.items():
+  if node.name in gs.nodes:
+    del gs.nodes[node.name]
+  for (key, item) in gs.nodes.items():
     try:
       item.edges.remove(node)
     except ValueError:
       pass
 
+nodes = {}  
 
-nodes = {}
 @app.route('/generateSequence', methods=['POST'])
 def gs():
+
+    nodes = {}
     input = request.get_json(force=True)
     print(input)
 
