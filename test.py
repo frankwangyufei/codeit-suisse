@@ -143,7 +143,7 @@ def gs():
       nodes[module] = Node(module)
     extra = []
     for pair in input['dependencyPairs']:
-      if pair['dependee'] not in nodes[module]:
+      if pair['dependee'] not in nodes:
         nodes[pair['dependee']] = Node(pair['dependee']) 
       extra.append(pair['dependee'])
       nodes[pair['dependee']].addEdge(nodes[pair['dependentOn']])
