@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import request # <- added
 import json
+import requests
+
 
 app = Flask(__name__)
 
@@ -183,6 +185,33 @@ def gs():
         except ValueError:
             pass
     return format(resolved)
+
+
+
+
+@app.route('/generateSequence', methods=['POST'])
+def sa():
+
+    input = request.get_json(force=True)
+    headers = {
+        'api-key': 'f96743df-2e48-4e7b-9532-b20b1242dece',
+    }
+
+    for review in input['reviews']:
+      files = {
+         'text': (None, review),
+      }
+      response = requests.post('https://api.deepai.org/api/sentiment-analysis', headers=headers, files=files)
+      json = response.json()['output']
+
+      result = {}
+      result['response'] = []
+      if json[0] == "Verypositive" or json[0] == "Positive":
+        result['response'].append("positive")
+      else:
+        result['response'].append("negative")
+    return result
+
 
 @app.route('/gun-control', methods=['POST'])
 def gunControl():
