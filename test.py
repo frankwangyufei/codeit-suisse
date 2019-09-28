@@ -609,4 +609,4 @@ def weddingnightmare():
             result['allocation'] += ([[number + 1, i + 1] for number in union_set[group]])
       results.append(result)
     print(results)
-    return results
+    return Response(json.dumps(results), mimetype='application/json')
