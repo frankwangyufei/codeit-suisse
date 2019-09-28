@@ -375,7 +375,7 @@ def p1():
       
     else:
       
-      output["res"] = solve(n, t)
+      output["res"] = solvep1(n, t)
       print(output["res"])
     return output
 
