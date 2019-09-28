@@ -102,7 +102,7 @@ def dep_resolve(node, resolved, unresolved):
          dep_resolve(edge, resolved, unresolved)
    resolved.append(node)
    unresolved.remove(node)
-   
+
 class Node:
   def __init__(self, name):
     self.name = name
@@ -136,7 +136,7 @@ def remove_node(node):
 
 @app.route('/generateSequence', methods=['POST'])
 def gs():
-    data = request.get_json(force=True)
+    input = request.get_json(force=True)
 
     nodes = {}
     for module in input['modules']:
