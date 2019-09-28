@@ -622,7 +622,7 @@ def exp():
 
         first_digit = 0
         last_digit = 0 
-        digit = 1
+        power = 1
 
     elif n ==1:
 
