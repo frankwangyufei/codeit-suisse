@@ -138,11 +138,11 @@ nodes = {}
 @app.route('/generateSequence', methods=['POST'])
 def gs():
     input = request.get_json(force=True)
+    print(input)
 
     for module in input['modules']:
       nodes[module] = Node(module)
     extra = []
-    print(nodes)
     for pair in input['dependencyPairs']:
       if pair['dependee'] not in nodes:
         nodes[pair['dependee']] = Node(pair['dependee']) 
