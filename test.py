@@ -30,7 +30,7 @@ def chessgame():
                 kI = size
             size = size+1
             a.append(l)  
-    size = size-1      
+            l = []
     kJ = kJ-1
     count = 0;
     s = [True,True,True,True,True,True,True,True]
@@ -83,4 +83,4 @@ def chessgame():
                 s[7] = False;
             else:
                 count = count+1
-    return str(count)
+    return str(size)
