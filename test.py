@@ -8,6 +8,7 @@ app = Flask(__name__)
 def hello_world():
   return 'Hello, World!'
 
-@app.route('/chessgame', methods=['GET', 'POST'])
+@app.route('/chessgame', methods=['POST'])
 def chessgame():
-	return request.form['asdf']
+	data = request.get_json()
+	return data[0]
