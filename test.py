@@ -1,8 +1,10 @@
 from flask import Flask
 from flask import request # <- added
+from flask import Response
 import json
 import requests
 from string import punctuation
+import random
 
 
 app = Flask(__name__)
@@ -319,3 +321,81 @@ def gunControl():
     ans += '}'
     print(ans)
     return json.loads(ans)
+@app.route('/lottery', methods=['GET'])
+def lottery():
+    dict1 = []
+    for i in range(10):
+        dict1.append(random.randint(1,100))
+    return Response(json.dumps(dict1), mimetype='application/json')
+
+
+def solvep1(n, t):
+  if t > 2*n:
+
+    if solvep1(n-2, t-2*n-1) == -1:
+      return -1
+    else:
+      return solvep1(n-2, t-2*n-1) + 2
+  if t%n == 1:
+    return -1
+  else:
+    return 3
+
+@app.route('/readyplayerone', methods=['POST'])
+def p1():
+    input = request.get_json(force=True)
+    n = int(input["maxChoosableInteger"])
+    t = int(input["desiredTotal"])
+
+    print(n, t)
+
+    output = {}
+
+    if (n*(n+1))/2 < t:
+      output["res"] = -1
+      print(output)
+      
+    else:
+      
+      output["res"] = solvep1(n, t)
+      print(output["res"])
+    return output
+
+
+def solvecomp(s, patterns, min):
+
+  lastmin = min
+  if (min < 0):
+    return min
+  for pattern in patterns:
+    rep = s.count(pattern)
+    if rep == 0:
+      continue
+    for char in pattern:
+      new_s = s
+      rep = len(new_s)
+      while (len(new_s) != len(new_s.replace(pattern, char))):
+        new_s = new_s.replace(pattern, char)
+
+      rep -= len(new_s)
+      new_s.replace(pattern, char)
+      ret = solvecomp(new_s, patterns, min - rep)
+      if ret + rep < min:
+        min = ret + rep
+  if min == lastmin:
+    return 0
+  return min
+@app.route('/composition', methods=['POST'])
+def comp():
+    input = request.get_json(force=True)
+
+    result = {}
+    result["testId"] = input["setId"]
+    s = input["composition"]
+
+    print(s)
+    patterns = input["patterns"]
+
+    print(patterns)
+    result["result"] = solvecomp(s, patterns, 9999)
+    return result
