@@ -380,15 +380,15 @@ def p1():
     return output
 
 
-def solvecomp(s, patterns):
+def solvecomp(s, patterns, min):
 
-  min = 99999
+  lastmin = min
+  if (min < 0):
+    return min
   for pattern in patterns:
     rep = s.count(pattern)
     if rep == 0:
       continue
-    new_patterns = patterns.copy()
-    new_patterns.remove(pattern)
     for char in pattern:
       new_s = s
       rep = len(new_s)
@@ -397,10 +397,10 @@ def solvecomp(s, patterns):
 
       rep -= len(new_s)
       new_s.replace(pattern, char)
-      ret = solvecomp(new_s, new_patterns)
+      ret = solvecomp(new_s, patterns, min - rep)
       if ret + rep < min:
         min = ret + rep
-  if min == 99999:
+  if min == lastmin:
     return 0
   return min
 @app.route('/composition', methods=['POST'])
@@ -415,5 +415,5 @@ def comp():
     patterns = input["patterns"]
 
     print(patterns)
-    result["result"] = solvecomp(s, patterns)
+    result["result"] = solvecomp(s, patterns, 99)
     return result
