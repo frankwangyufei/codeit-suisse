@@ -1,4 +1,6 @@
 from flask import Flask
+from flask import request # <- added
+
 
 app = Flask(__name__)
 
@@ -8,4 +10,4 @@ def hello_world():
 
 @app.route('/chessgame', methods=['GET', 'POST'])
 def chessgame():
-	return request[0]
+	return request.form['application/json']
