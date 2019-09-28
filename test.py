@@ -188,11 +188,13 @@ def gs():
 def gunControl():
     types = request.get_json(force=True)
     print(types)
+    print(types['fuel'])
     y = len(types['grid'])
     x = len(types['grid'][0])
     print(x,y)
     gun = []
-    sel = []
+    gas = []
+    sol = []
     curr = 0;
     visited = [0]*(x*y);
     queue = []
@@ -232,12 +234,38 @@ def gunControl():
             #print("r",types['grid'][curr//x][curr%x+1])
         if dead:
             gun.append(curr)
-            sel.append(False)
+            gas.append(visited[curr])
+            sol.append(False)
     #print(visited)
     print(gun)
+    print(gas)
+    #print(len(gun))
+    
+    #https://medium.com/@fabianterh/how-to-solve-the-knapsack-problem-with-dynamic-programming-eb88c706d3cf
+    dp = [[0 for x in range(types['fuel']+1)] for y in range(len(gun)+1)] 
+    for i in range(len(gun)+1):
+       dp[i][0] = 0;
+    for i in range(types['fuel']+1):
+        dp[0][i] = 0;
     for i in range(len(gun)):
-        print(visited[gun[i]])
-    print(len(gun))
+        for capacity in range(1,types['fuel']+1):
+            maxWO = dp[i][capacity];
+            maxW = 0
+            currFuel = gas[i]
+            if (capacity >= currFuel):
+                remain = capacity-currFuel
+                maxW = currFuel + dp[i][remain]
+            dp[i+1][capacity] = max(maxWO,maxW)
+    print("sol",dp[len(gun)][types['fuel']])
+    cap = types['fuel']
+    for i in range(len(gun), 0,-1):
+        if (dp[i][cap] > dp[i-1][cap]):
+            cap -= gas[i-1]
+            sol[i-1] = True
+    print(sol)
+    count = sol.count(True)
+    print(count)
+    """
     def minRemain(choice,set,n,remain):
         if (remain == 0 or n==0):
             return choice,remain
@@ -255,11 +283,12 @@ def gunControl():
     print(sel)
     count = sel.count('1')
     #print(count)
+    """
     ans = ""
     ans += '{'
     ans += '\"hits\": ['
-    for i in range(len(sel)):
-        if (sel[i] == '1'):
+    for i in range(len(sol)):
+        if (sol[i] == True):
             count -= 1
             ans += '{'
             ans += '\"cell\":{'
