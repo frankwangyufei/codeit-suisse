@@ -379,3 +379,38 @@ def p1():
       print(output["res"])
     return output
 
+
+def solvecomp(s, patterns):
+
+  min = 99999
+  for pattern in patterns:
+    rep = s.count(pattern)
+    if rep == 0:
+      continue
+    new_patterns = patterns.copy()
+    new_patterns.remove(pattern)
+    for char in pattern:
+      new_s = s
+      rep = len(new_s)
+      while (len(new_s) != len(new_s.replace(pattern, char))):
+        new_s = new_s.replace(pattern, char)
+
+      rep -= len(new_s)
+      new_s.replace(pattern, char)
+      ret = solvecomp(new_s, new_patterns)
+      if ret + rep < min:
+        min = ret + rep
+  if min == 99999:
+    return 0
+  return min
+@app.route('/composition', methods=['POST'])
+def comp():
+    input = request.get_json(force=True)
+
+    result = {}
+    result["testId"] = input["setId"]
+    s = input["composition"]
+
+    patterns = input["patterns"]
+    result["result"] = solvecomp(s, patterns)
+    return result
