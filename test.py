@@ -183,3 +183,88 @@ def gs():
         except ValueError:
             pass
     return format(resolved)
+
+@app.route('/gun-control', methods=['POST'])
+    types = request.get_json(force=True)
+y = len(types['grid'])
+x = len(types['grid'][0])
+#print(x,y)
+gun = []
+sel = []
+curr = 0;
+visited = [0]*(x*y);
+queue.append(curr)
+visited[curr] = 1;
+while queue:
+    curr = queue.pop(0)
+    dead = True
+    #print("curr",curr, curr//x, curr%x)
+    #up
+    if (curr-x >= 0 and visited[curr-x] == False and \
+        types['grid'][curr//x-1][curr%x] == 'O'):
+        queue.append(curr-x);
+        visited[curr-x] = visited[curr]+1
+        dead = False
+        #print("u",types['grid'][curr//x-1][curr%x])
+    #down
+    if (curr+x < x*y and visited[curr+x] == False and \
+        types['grid'][curr//x+1][curr%x] == 'O'):
+        queue.append(curr+x);
+        visited[curr+x] = visited[curr]+1
+        dead = False
+        #print("d",types['grid'][curr//x+1][curr%x])
+    #left
+    if (curr%x > 0 and visited[curr-1] == False and \
+        types['grid'][curr//x][curr%x-1] == 'O'):
+        queue.append(curr-1);
+        visited[curr-1] = visited[curr]+1
+        dead = False
+        #print("l",types['grid'][curr//x][curr%x-1])
+    #right
+    if (curr%x < x-1 and visited[curr+1] == False and \
+        types['grid'][curr//x][curr%x+1] == 'O'):
+        queue.append(curr+1);
+        visited[curr+1] = visited[curr]+1
+        dead = False
+        #print("r",types['grid'][curr//x][curr%x+1])
+    if dead:
+        gun.append(curr)
+        sel.append(False)
+#print(visited)
+#print(gun)
+#print(len(gun))
+def minRemain(choice,set,n,remain):
+    if (remain == 0 or n==0):
+        return choice,remain
+    c1,r1 = minRemain('0'+choice,set,n-1,remain);
+    if (remain >= visited[set[n-1]]):
+        c2,r2 = minRemain('1'+choice,set,n-1,remain-visited[set[n-1]])    
+        if (r1<r2):
+            return c1,r1
+        else:
+            return c2,r2
+    else:
+        return c1,r1
+sel,remain = minRemain("",gun,len(gun),types['fuel'])
+#print("remain",remain)
+#print(sel)
+count = sel.count('1')
+#print(count)
+ans = ""
+ans += '{'
+ans += '\"hits\": ['
+for i in range(len(sel)):
+    if (sel[i] == '1'):
+        count -= 1
+        ans += '{'
+        ans += '\"cell\":{'
+        ans += '\"x\": '+str(gun[i]%x+1)+','
+        ans += '\"y\": '+str(gun[i]//x+1)
+        ans += '},'
+        ans += '\"guns\": '+str(visited[gun[i]])
+        ans += '}'
+        if (count > 0):
+            ans += ','
+ans += ']'
+ans += '}'
+return(ans)
