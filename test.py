@@ -10,6 +10,6 @@ def hello_world():
 
 @app.route('/chessgame', methods=['POST'])
 def chessgame():
-	data = request.json
+	data = request.get_json(force=True)
 	print(format(data))
 	return data
