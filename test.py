@@ -15,7 +15,7 @@ def chessgame():
     size = 0
     kI = 1000
     kJ = 1000
-    for char in range(len(ormat(data))):
+    for char in range(len(format(data))):
         if (data[char] == '['):
             quoteCount = 0
             l = []
