@@ -145,7 +145,10 @@ def gs():
     for pair in input['dependencyPairs']:
       if pair['dependee'] not in nodes:
         nodes[pair['dependee']] = Node(pair['dependee']) 
-      extra.append(pair['dependee'])
+        extra.append(pair['dependee'])
+      if pair['dependentOn'] not in nodes:
+        nodes[pair['dependentOn']] = Node(pair['dependentOn']) 
+        extra.append(pair['dependentOn'])
       nodes[pair['dependee']].addEdge(nodes[pair['dependentOn']])
 
     graph = {}
