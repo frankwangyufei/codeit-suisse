@@ -345,9 +345,3 @@ def lottery():
     for i in range(10):
         dict1.append(random.randint(1,100))
     return Response(json.dumps(dict1), mimetype='application/json')
-
-
-@app.route('/lottery', methods=['GET'])
-def lottery():
-    dict1 = [1,1,1,26,1,1,51,51,51,51]
-    return Response(json.dumps(dict1), mimetype='application/json')
