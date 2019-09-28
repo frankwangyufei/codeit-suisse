@@ -626,6 +626,6 @@ def exp():
     first_digit = int(10**first_digit)
     last_digit = pow(n, p, 10) 
     result = [first_digit, power, last_digit]
-    ret = {result: result}
+    ret = {'result': result}
     print(ret)
     return Response(json.dumps(ret), mimetype='application/json')
