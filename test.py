@@ -190,7 +190,7 @@ def gunControl():
     print(types)
     y = len(types['grid'])
     x = len(types['grid'][0])
-    #print(x,y)
+    print(x,y)
     gun = []
     sel = []
     curr = 0;
@@ -233,9 +233,9 @@ def gunControl():
         if dead:
             gun.append(curr)
             sel.append(False)
-    #print(visited)
-    #print(gun)
-    #print(len(gun))
+    print(visited)
+    print(gun)
+    print(len(gun))
     def minRemain(choice,set,n,remain):
         if (remain == 0 or n==0):
             return choice,remain
@@ -249,8 +249,8 @@ def gunControl():
         else:
             return c1,r1
     sel,remain = minRemain("",gun,len(gun),types['fuel'])
-    #print("remain",remain)
-    #print(sel)
+    print("remain",remain)
+    print(sel)
     count = sel.count('1')
     #print(count)
     ans = ""
