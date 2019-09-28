@@ -359,12 +359,12 @@ def solvep1(n, t):
   else:
     return 3
 
-@app.route('/readyplayerone', methods=['GET'])
+@app.route('/readyplayerone', methods=['POST'])
 def p1():
     input = request.get_json(force=True)
     n = input["maxChoosableInteger"]
     t = input["desiredTotal"]
-        
+
     print(n, t)
 
     output = {}
