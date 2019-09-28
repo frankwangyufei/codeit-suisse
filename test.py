@@ -791,3 +791,65 @@ def exp():
     ret = {'result': result}
     print(ret)
     return Response(json.dumps(ret), mimetype='application/json')
+
+def hammingDist(s1,s2):
+    count = 0
+    for i in range(len(s1)):
+        if (s1[i] != s2[i]):
+            count += 1
+    return count
+@app.route('/typing-contest', methods=['POST'])
+def typing():
+    types = request.get_json(force=True)
+    print(types)
+    nodes = len(types)
+    print(nodes)
+    dist = [[0 for i in range(nodes)] for j in range(nodes)]
+    for i in range(nodes):
+        for j in range(i+1,nodes):
+            dist[i][j] = hammingDist(types[i],types[j])
+            dist[j][i] = dist[i][j]
+    #print(dist)
+    
+    sum = len(types[0])
+    queue = [0]
+    if (nodes > 1):
+        queue.append(1)
+        sum += dist[0][1]+1
+    for i in range(2,nodes):
+        pos = 0;
+        bestPos = 0
+        min = len(types[i])-len(types[queue[0]])+dist[0][i]
+        while (pos < i-1):
+            pos += 1
+            inc = dist[queue[pos-1]][i]+\
+                dist[queue[pos]][i]-\
+                dist[queue[pos-1]][queue[pos]]
+            if (inc < min):
+                min = inc
+                bestPos = pos
+        inc = dist[queue[i-1]][i]
+        if (inc < min):
+            min = inc
+            bestPos = pos
+        sum += min+1
+        queue.insert(bestPos,i)
+        #print(queue,sum,inc,bestPos)
+    s = "{ type: \'INPUT\', value: \'"
+    s += types[queue[0]]
+    s += "\' },"
+    order = []
+    order.append(s)
+    for i in range(1,len(queue)):
+        s = "{ type: \'COPY\', value: \'"
+        s += types[queue[i-1]]
+        s += "\' }," 
+        s = "{ type: \'TRANSFORM\', value: \'"
+        s += types[queue[i]]
+        s += "\' }"
+        if (i != len(queue)-1):
+            s += ','
+        order.append(s)
+    ans = {"cost":sum,"steps":order}
+    print(ans)
+    return ans
