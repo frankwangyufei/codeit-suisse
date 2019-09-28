@@ -480,9 +480,10 @@ def max1b():
             selected.append(last[0])
         else:
             i -= 1
+    profit = dp[numStocks][capital]+fixProfit
     for i in range(numStocks):
         selected.append(types['stocks'][i][0])
-    ans = {"profit":dp[numStocks][capital]+fixProfit,\
+    ans = {"profit":profit,\
            "portfolio":selected}
     print(ans)
     return ans
