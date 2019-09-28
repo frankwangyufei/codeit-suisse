@@ -197,7 +197,7 @@ def sa():
     headers = {
         'api-key': 'f96743df-2e48-4e7b-9532-b20b1242dece',
     }
-    
+    result = {}
     for review in input['reviews']:
       files = {
          'text': (None, review),
@@ -205,7 +205,6 @@ def sa():
       response = requests.post('https://api.deepai.org/api/sentiment-analysis', headers=headers, files=files)
       json = response.json()['output']
 
-      result = {}
       result['response'] = []
       if json[0] == "Verypositive" or json[0] == "Positive":
         result['response'].append("positive")
