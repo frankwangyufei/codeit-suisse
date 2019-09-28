@@ -614,7 +614,7 @@ def weddingnightmare():
 
 @app.route('/exponent', methods=['POST'])
 def exp():
-    cases = request.get_json(force=True)
+    input = request.get_json(force=True)
     n = input['n']
     p = input['p']
     print(n, p)
