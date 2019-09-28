@@ -810,39 +810,41 @@ def typing():
             dist[i][j] = hammingDist(types[i],types[j])
             dist[j][i] = dist[i][j]
     #print(dist)
-    
+
     sum = len(types[0])
-    queue = [0]
-    if (nodes > 1):
-        queue.append(1)
-        sum += dist[0][1]+1
-    for i in range(2,nodes):
-        pos = 0;
-        bestPos = 0
-        min = len(types[i])-len(types[queue[0]])+dist[0][i]
-        while (pos < i-1):
-            pos += 1
-            inc = dist[queue[pos-1]][i]+\
-                dist[queue[pos]][i]-\
-                dist[queue[pos-1]][queue[pos]]
-            if (inc < min):
-                min = inc
-                bestPos = pos
-        inc = dist[queue[i-1]][i]
-        if (inc < min):
-            min = inc
-            bestPos = pos
-        sum += min+1
-        queue.insert(bestPos,i)
-        #print(queue,sum,inc,bestPos)
-    s = {"type":'INPUT',"value":types[queue[0]]}
-    order = []
-    order.append(s)
-    for i in range(1,len(queue)):
-        s = {"type":'COPY',"value":types[queue[i-1]]}
-        order.append(s)
-        s = {"type":'TRANSFORM',"value":types[queue[i]]}
-        order.append(s)
-    ans = {"cost":sum,"steps":order}
-    #print(ans)
+    bTime = 2147483647;
+    bV = []
+    bO = []
+    for i in range(nodes):
+        time = len(types[0])+nodes-1
+        queue = []
+        visited = [-1]*nodes
+        s = i
+        count = 0
+        queue.append(s)
+        com = {"type":'INPUT',"value":types[i]}
+        order = []
+        order.append(com)
+        visited[s] = count
+        while (queue):
+            s = queue.pop(0)
+            count += 1
+            min = 2147483647
+            for i in range(nodes):
+                if (visited[i] == -1 and dist[s][i] < min):
+                    min = dist[s][i]
+            for i in range(nodes):
+                if (visited[i] == -1 and dist[s][i] == min):
+                    queue.append(i)
+                    visited[i] = count
+                    time += min
+                    com = {"type":'COPY',"value":types[s]}
+                    order.append(com)
+                    com = {"type":'TRANSFORM',"value":types[i]}
+                    order.append(com)
+        if (time < bTime):
+            bTime = time;
+            bV = visited
+            bO = order
+    ans = {"cost":bTime,"steps":bO}
     return ans
