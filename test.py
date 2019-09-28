@@ -134,11 +134,11 @@ def remove_node(node):
       pass
 
 
+nodes = {}
 @app.route('/generateSequence', methods=['POST'])
 def gs():
     input = request.get_json(force=True)
 
-    nodes = {}
     for module in input['modules']:
       nodes[module] = Node(module)
 
