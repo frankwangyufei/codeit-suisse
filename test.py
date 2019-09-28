@@ -339,4 +339,4 @@ def gunControl():
     return json.loads(ans)
 @app.route('/lottery', methods=['GET'])
 def lottery():
-    return [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    return "[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]"
