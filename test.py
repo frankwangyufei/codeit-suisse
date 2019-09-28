@@ -12,4 +12,4 @@ def hello_world():
 def chessgame():
 	data = request.get_json(force=True)
 	print(format(data))
-	return data
+	return format(data)
