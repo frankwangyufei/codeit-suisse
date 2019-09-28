@@ -433,5 +433,4 @@ def max1a():
     ans = {"profit":dp[numStocks][capital],\
            "portfolio":selected}
     print(ans)   
-    with open('output.json','w') as f:
-        json.dump(ans,f)
+    json.loads(ans)
