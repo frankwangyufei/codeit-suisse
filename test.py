@@ -411,6 +411,9 @@ def comp():
     result["testId"] = input["setId"]
     s = input["composition"]
 
+    print(s)
     patterns = input["patterns"]
+
+    print(patterns)
     result["result"] = solvecomp(s, patterns)
     return result
