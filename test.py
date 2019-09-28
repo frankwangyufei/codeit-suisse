@@ -196,7 +196,6 @@ def strip_punctuation(s):
 def sa():
 
     input = request.get_json(force=True)
-    print(input)
     headers = {
         'api-key': 'f96743df-2e48-4e7b-9532-b20b1242dece',
     }
@@ -204,6 +203,7 @@ def sa():
     result['response'] = []
     for review in input['reviews']:
       review = strip_punctuation(review)
+      print(review)
       files = {
          'text': (None, review),
       }
