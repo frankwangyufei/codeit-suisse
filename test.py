@@ -273,4 +273,4 @@ def gunControl():
     ans += ']'
     ans += '}'
     print(ans)
-    return ans
+    return json.loads(ans)
