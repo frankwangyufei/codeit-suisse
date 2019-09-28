@@ -193,10 +193,11 @@ def gs():
 def sa():
 
     input = request.get_json(force=True)
+    print(input)
     headers = {
         'api-key': 'f96743df-2e48-4e7b-9532-b20b1242dece',
     }
-
+    
     for review in input['reviews']:
       files = {
          'text': (None, review),
