@@ -362,8 +362,8 @@ def solvep1(n, t):
 @app.route('/readyplayerone', methods=['POST'])
 def p1():
     input = request.get_json(force=True)
-    n = input["maxChoosableInteger"]
-    t = input["desiredTotal"]
+    n = int(input["maxChoosableInteger"])
+    t = int(input["desiredTotal"])
 
     print(n, t)
 
