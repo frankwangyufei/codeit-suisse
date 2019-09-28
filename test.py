@@ -533,9 +533,6 @@ def max2():
     print(types)
     risk = types['risk']
     multiplier = risk
-    for stock in types['stocks']:
-        if (stock[3] > multiplier):
-            multiplier = stock[3]
     multiplier += 1
     capital = types['startingCapital']
     numStocks = len(types['stocks'])
