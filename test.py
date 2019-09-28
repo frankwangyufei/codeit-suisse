@@ -400,7 +400,6 @@ def comp():
     result["result"] = solvecomp(s, patterns, 1000)
     return result
 
-
 @app.route('/maximise_1a', methods=['POST'])
 def max1a():
     types = request.get_json(force=True)
@@ -433,4 +432,57 @@ def max1a():
     ans = {"profit":dp[numStocks][capital],\
            "portfolio":selected}
     print(ans)   
+    return ans
+
+@app.route('/maximise_1b', methods=['POST'])
+def max1b():
+    types = request.get_json(force=True)
+    print(types)
+    capital = types['startingCapital']
+    numStocks = len(types['stocks'])
+    fixCost = 0
+    fixProfit = 0
+    for stock in types['stocks']:
+        fixCost += stock[2]
+        fixProfit += stock[1]
+    capital -= fixCost
+    print(numStocks, fixCost, capital)
+    
+    #similar to gun control, uses dp
+    dp = [[0 for x in range(capital+1)] for y in range(numStocks+1)] 
+    for i in range(numStocks+1):
+       dp[i][0] = 0;
+    for i in range(capital+1):
+        dp[0][i] = 0;
+    for i in range(numStocks):
+        for capacity in range(1,capital+1):
+            maxWO = dp[i][capacity];
+            maxW = 0
+            currCost = types['stocks'][i][2]
+            if (capacity >= currCost):
+                remain = capacity-currCost
+                maxW = types['stocks'][i][1] + dp[i+1][remain]
+            dp[i+1][capacity] = max(maxWO,maxW)
+    #print(dp)   
+    selected = []
+    cap = capital
+    i = numStocks
+    while (cap > 0):
+        curr = types['stocks'][i-1]
+        last = types['stocks'][i-2]
+        print(cap, selected,curr,last)
+        if (cap >= curr[2] and dp[i][cap] == curr[1]+dp[i][cap-curr[2]]):
+            cap -= curr[2]
+            selected.append(curr[0])
+        elif (cap >= last[2] and dp[i][cap] == last[1]+dp[i-1][cap-last[2]]):
+            i -= 1
+            cap -= last[2]
+            selected.append(last[0])
+        else:
+            i -= 1
+    for i in range(numStocks):
+        selected.append(types['stocks'][i][0])
+    ans = {"profit":dp[numStocks][capital]+fixProfit,\
+           "portfolio":selected}
+    print(ans)
     return ans
