@@ -486,3 +486,42 @@ def max1b():
            "portfolio":selected}
     print(ans)
     return ans
+
+@app.route('/maximise_1c', methods=['POST'])
+def max1c():
+    types = request.get_json(force=True)
+    print(types)
+    capital = types['startingCapital']
+    numStocks = len(types['stocks'])
+    print(numStocks, capital)    
+    #similar to gun control, uses dp
+    dp = [[0 for x in range(capital+1)] for y in range(numStocks+1)] 
+    for i in range(numStocks+1):
+       dp[i][0] = 0;
+    for i in range(capital+1):
+        dp[0][i] = 0;
+    for i in range(numStocks):
+        for capacity in range(1,capital+1):
+            maxWO = dp[i][capacity];
+            maxW = 0
+            currCost = types['stocks'][i][2]
+            if (capacity >= currCost):
+                remain = capacity-currCost
+                maxW = types['stocks'][i][1] + dp[i+1][remain]
+            dp[i+1][capacity] = max(maxWO,maxW)
+    #print(dp)
+    
+    selected = []
+    cap = capital
+    i = numStocks
+    while (cap > 0 and i > 0):
+        print(i,cap, selected)
+        if (cap >= types['stocks'][i-1][2] and dp[i][cap] == types['stocks'][i-1][1]+dp[i][cap-types['stocks'][i-1][2]]):
+            cap -= types['stocks'][i-1][2]
+            selected.append(types['stocks'][i-1][0])
+        else:
+            i -= 1
+    ans = {"profit":dp[numStocks][capital],\
+           "portfolio":selected}
+    print(ans)
+    return ans
