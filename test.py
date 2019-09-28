@@ -10,4 +10,4 @@ def hello_world():
 
 @app.route('/chessgame', methods=['GET', 'POST'])
 def chessgame():
-	return request.form['application/json']
+	return request.form['asdf']
