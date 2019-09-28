@@ -6,6 +6,6 @@ app = Flask(__name__)
 def hello_world():
   return 'Hello, World!'
 
-@app.route('/chessgame')
-def chessgame(json):
-	return 'answer here'
+@app.route('/chessgame', methods=['GET', 'POST'])
+def chessgame():
+	return request[0]
