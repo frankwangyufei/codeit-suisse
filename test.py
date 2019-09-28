@@ -7,5 +7,5 @@ def hello_world():
   return 'Hello, World!'
 
 @app.route('/chessgame')
-def chessgame():
+def chessgame(json):
 	return 'answer here'
