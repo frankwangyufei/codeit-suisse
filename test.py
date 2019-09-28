@@ -851,5 +851,5 @@ def typing():
             s += ','
         order.append(s)
     ans = {"cost":sum,"steps":order}
-    print(ans)
+    #print(ans)
     return ans
