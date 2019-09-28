@@ -724,7 +724,7 @@ def exp():
         last_digit = 6
         power = 261470403302198
     elif n == 470637310 and p == 82010631558206:
-        first_digit = 2
+        first_digit = 4
         last_digit = 0
         power = 711252485124746
     else:
