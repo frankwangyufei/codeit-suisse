@@ -200,6 +200,7 @@ def sa():
     result = {}
     result['response'] = []
     for review in input['reviews']:
+      review = review.replace(".", "")
       files = {
          'text': (None, review),
       }
