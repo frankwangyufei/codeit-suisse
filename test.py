@@ -127,7 +127,7 @@ def dfs(graph, start, end):
 def remove_node(node):
   if node.name in nodes:
     del nodes[node.name]
-  for (key, item) in gs.nodes.items():
+  for (key, item) in nodes.items():
     try:
       item.edges.remove(node)
     except ValueError:
