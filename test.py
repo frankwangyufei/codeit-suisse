@@ -433,4 +433,4 @@ def max1a():
     ans = {"profit":dp[numStocks][capital],\
            "portfolio":selected}
     print(ans)   
-    json.loads(ans)
+    return ans
