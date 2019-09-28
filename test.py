@@ -628,7 +628,7 @@ def exp():
 
         first_digit = 1
         last_digit = 1
-        digit = 1
+        power = 1
     else:
         digit = math.log(n, 10) * p
 
