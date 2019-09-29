@@ -975,8 +975,11 @@ def solvebank():
   n = input["N"]
   officers = input["branch_officers_timings"]
   print(n, officers)
-  
+
   n %= get_lcm_for(officers)
+  
+  if n == 0:
+    n = get_lcm_for(officers)
   output = sbank(n, officers, [0] * len(officers))
   print(output)
   return {"answer": output}
