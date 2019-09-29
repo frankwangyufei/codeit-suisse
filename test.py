@@ -891,7 +891,7 @@ def solvesm():
     text = pattern.sub('', text)
     text = list(text)
     result = []
-    while len(text) > 1:
+    while len(text) > 0:
       result += text[0::n]
       del text[::n]
     print("".join(result))
