@@ -971,27 +971,32 @@ def get_lcm_for(your_list):
   return lcm
 
   
+
 def sbank(n, officers, status):
-  # print(n, status)
   while n > 0:
-    min = (-1,999999)
-    while min[0] == -1:
-        for (i, officer) in enumerate(officers):
-          if status[i] == 0:
-            if officer < min[1]:
-              min = (i, officer)
-        if min[0] != -1:
-          break
-        for (i, time) in enumerate(status):
-          if (time > 0):
-            status[i] = time -1
+    while True:
+      mini = (-1,999999)
+      for (i, officer) in enumerate(officers):
+        if status[i] == 0:
+          if officer < mini[1]:
+            mini = (i, officer)
 
-    if n == 1 and min[0] != -1:
-      return min[0] + 1
-    else:
-      status[min[0]] = min[1]
+      if mini[0] == -1:
+        break
+      status[mini[0]] = mini[1]
       n -= 1
+      
+      if n == 0 and mini[0] != -1:
+        return mini[0] + 1
 
+
+    minimum = min(status)
+    for (i, time) in enumerate(status):
+      if (time > 0):
+        status[i] = time - minimum
+
+    print(n, status)
+    
 @app.route('/bankbranch', methods=['POST'])
 def solvebank():
   input = request.get_json(force=True)
