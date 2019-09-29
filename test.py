@@ -958,7 +958,9 @@ def solvebank():
   if n > 1000: 
     return
   officers = input["branch_officers_timings"]
+  print(n, officers)
   output = sbank(n, officers, [0] * len(officers))
+  print(output)
   return {"answer": output}
 
 
