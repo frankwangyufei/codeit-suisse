@@ -895,7 +895,7 @@ def solvesm():
       result += text[0::n]
       del text[::n]
     print("".join(result))
-    output.append(result)
+    output.append("".join(result))
  
   return Response(json.dumps(output), mimetype='application/json')
 
