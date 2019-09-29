@@ -337,12 +337,16 @@ def lottery():
 @app.route('/technical-analysis', methods=['POST'])
 def solveta():
 
-    dict1 = range(100, 1099)
-    n = random.randint(50, 500)
-    dict1 = random.sample(dict1, n)
-    dict1.sort()
+    input = request.get_json(force=True)
+    dict2 = [] 
+    for case in input:
+        dict1 = range(100, 1099)
+        n = random.randint(50, 500)
+        dict1 = random.sample(dict1, n)
+        dict1.sort()
+        dict2.append(dict1)
     
-    return Response(json.dumps(dict1), mimetype='application/json')
+    return Response(json.dumps(dict2), mimetype='application/json')
 
 
 
