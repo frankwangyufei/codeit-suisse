@@ -903,8 +903,7 @@ def defuse():
     print(output)
     return Response(json.dumps(output), mimetype='application/json')
 
-
-@app.route('/encryption', methods=['POST'])    
+    
 def solvesm():
   input = request.get_json(force=True)
   pattern = re.compile('[\W_]+')
@@ -929,4 +928,34 @@ def solvesm():
     output.append("".join(result))
  
   return Response(json.dumps(output), mimetype='application/json')
+
+
+  
+@app.route('/bankbranch', methods=['POST'])
+def sbank(n, officers, status):
+  # print(n, status)
+  min = (-1,999999)
+  for (i, officer) in enumerate(officers):
+    if status[i] == 0:
+      if officer < min[1]:
+        min = (i, officer)
+
+  if n == 1 and min[0] != -1:
+    return min[0] + 1
+  else:
+    if (min[0] == -1):
+      for (i, time) in enumerate(status):
+        if (time > 0):
+          status[i] = time -1
+      return sbank(n, officers, status)
+    status[min[0]] = min[1]
+    return sbank(n-1, officers, status)
+
+def solvebank():
+  input = request.get_json(force=True)
+  n = input["N"]
+  officers = input["branch_officers_timings"]
+  output = sbank(n, officers, [0] * len(officers))
+  return {"answer": output}
+
 
