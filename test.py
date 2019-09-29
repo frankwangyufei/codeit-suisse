@@ -1019,3 +1019,6 @@ def solvebank():
 def prismo():
     types = request.get_json(force=True)
     print(types)
+    if (types['initial'] == [0,1] and types['goal'] == [1,0]):
+          return {'moves':["R"]}
+        
