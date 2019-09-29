@@ -1006,8 +1006,8 @@ def solvebank():
   lcm = get_lcm_for(officers)
   se = 0
   for officer in officers:
-    se += lcm / officer
-  n %= get_lcm_for(se)
+    se += lcm // officer
+  n %= se
 
   if n == 0:
     n = get_lcm_for(officers)
