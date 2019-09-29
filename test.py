@@ -874,4 +874,4 @@ def defuse():
     output = []
     for i in range(len(types)):
         output.append(3)
-    return output
+    return str(output)
