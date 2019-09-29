@@ -994,7 +994,7 @@ def sbank(n, officers, status):
       if (time > 0):
         status[i] = time - minimum
 
-    #print(n, status)
+    print(n, status)
     
 @app.route('/bankbranch', methods=['POST'])
 def solvebank():
