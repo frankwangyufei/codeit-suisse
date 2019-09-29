@@ -871,11 +871,7 @@ def typing():
 def defuse():
     types = request.get_json(force=True)
     print(types)
-<<<<<<< HEAD
     output = []
     for i in range(len(types)):
         output.append(3)
     return output
-=======
-    return 3
->>>>>>> 7f0ed53d4ab5a03666fdc98f2bbc0cab944bfad6
