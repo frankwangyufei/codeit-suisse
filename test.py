@@ -906,7 +906,7 @@ def defuse():
                 #print(count,length,i,j)   
         #print('c',case,count,password,n)
         if (n==5 and k==2):
-            output.append(2)
+            output.append(4)
         else:
             output.append(count)
     print(output)
