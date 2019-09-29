@@ -872,6 +872,31 @@ def defuse():
     types = request.get_json(force=True)
     print(types)
     output = []
-    for i in range(len(types)):
-        output.append(3)
+    for case in range(len(types)): 
+        k = types[case]['k']    
+        lookup = [1,k]
+        n = types[case]['n']
+        count = 0
+        password = types[case]['password']
+        for length in range(3,n+1,2):
+            for i in range(n-length+1):
+                temp = 0
+                for j in range((length-1)//2-1):
+                    if (password[i+j-1] == -1):
+                        if (password[i+length-j] == -1):
+                            temp += 1#else only 1 case
+                    else:
+                        if (password[i+length-j] != -1 and password[i+length-j] != password[i+j-1]):
+                            temp = -1
+                            break;
+                if (length%2 == 1):
+                    if (password[i+length//2+1] == -1):
+                        temp += 1
+                if (temp != -1):
+                    while (len(lookup) < temp):
+                        lookup.append(lookup[len(lookup)-1]*k)
+                    count += lookup[temp]
+                #print(count,length,i,j)   
+        #print('c',case,count,password,n)
+        output.append(count)
     return str(output)
