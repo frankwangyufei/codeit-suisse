@@ -893,10 +893,18 @@ def defuse():
                 if (temp != -1 and length%2 == 1):
                     if (password[i+length//2] == -1):
                         temp += 1
+                    for others in range(i-1):
+                        if (password[others] == -1):
+                            temp += 1
+                    for others in range(i+length,n):
+                        if (password[others] == -1):
+                            temp += 1
                 if (temp != -1):
                     while (len(lookup) <= temp):
                         lookup.append(lookup[len(lookup)-1]*k)
                     count += lookup[temp]
+                    if (count >= 998244353):
+                        count %= 998244353
                 #print(count,length,i,j)   
         #print('c',case,count,password,n)
         output.append(count)
