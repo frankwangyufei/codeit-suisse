@@ -890,10 +890,15 @@ def solvesm():
     text = text.upper()
     text = pattern.sub('', text)
     text = list(text)
-    result = []
-    while len(text) > 0:
-      result += text[0::n]
-      del text[::n]
+    result = [' '] * len(text)
+    i = 0
+    j = 0
+    while i < len(text):
+
+      result[j::n] = text[i:i + len(result[j::n])]
+      i += len(result[0::n])
+      j += 1
+      print(result)
     print("".join(result))
     output.append("".join(result))
  
