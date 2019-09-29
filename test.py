@@ -973,9 +973,10 @@ def sbank(n, officers, status):
 def solvebank():
   input = request.get_json(force=True)
   n = input["N"]
-  n %= get_lcm_for(officers)
   officers = input["branch_officers_timings"]
   print(n, officers)
+  
+  n %= get_lcm_for(officers)
   output = sbank(n, officers, [0] * len(officers))
   print(output)
   return {"answer": output}
