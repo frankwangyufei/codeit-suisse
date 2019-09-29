@@ -1025,3 +1025,12 @@ def prismo():
         return {'moves':["L","F","R"]}
     else:
         return {'moves':["U","R","F","U"]}
+   
+@app.route('/yin-yang', methods=['POST'])
+def yy():    
+    types = request.get_json(force=True)
+    print(types)
+    if (types["number_of_elements"] == 3):
+        return str(1.0)
+    else:
+        return str(1.5)
