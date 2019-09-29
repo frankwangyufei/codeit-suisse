@@ -900,6 +900,7 @@ def defuse():
                 #print(count,length,i,j)   
         #print('c',case,count,password,n)
         output.append(count)
+    print(output)
     return str(output)
 
 
