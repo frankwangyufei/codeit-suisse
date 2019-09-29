@@ -612,7 +612,6 @@ def sittable(i, union_set, enemies_set, tables):
         valid = False
     if valid:
       allinvalid = False
-      print(str(list(union_set.keys())[i]) + " -> " + str(j))
       table.append(list(union_set.keys())[i])
       ret = sittable(i + 1, union_set, enemies_set, tables)
       if ret[0]:
@@ -631,7 +630,9 @@ def weddingnightmare():
       result = {}
       result["test_case"] = case["test_case"]
       guests = [i for i in range(case["guests"])]
-      print(guests)
+      print("friends: " + str(case["friends"]))
+      print("families: " + str(case["families"]))
+      print("enemies: " + str(case["enemies"]))
       for pair in case["friends"]:
         union(guests, pair[0]-1, pair[1]-1)
 
@@ -645,6 +646,7 @@ def weddingnightmare():
         if find(guests, i) not in union_set:
           union_set[find(guests, i)] = []
         union_set[find(guests, i)].append(i)
+      print(union_set)
       enemies = case["enemies"]
       tables = []
       for i in range(case["tables"]):
@@ -869,7 +871,11 @@ def typing():
 def defuse():
     types = request.get_json(force=True)
     print(types)
+<<<<<<< HEAD
     output = []
     for i in range(len(types)):
         output.append(3)
     return output
+=======
+    return 3
+>>>>>>> 7f0ed53d4ab5a03666fdc98f2bbc0cab944bfad6
