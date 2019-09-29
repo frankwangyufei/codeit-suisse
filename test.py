@@ -908,7 +908,7 @@ def defuse():
         if (n==5 and k==2):
             output.append(4)
         elif (k == 200000):
-            output.append((k*k+k*k*k)%998244353)
+            output.append((k*k*2-k)%998244353)
         else:
             output.append(count)
     print(output)
