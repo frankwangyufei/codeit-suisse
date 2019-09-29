@@ -8,6 +8,7 @@ import random
 import math
 from decimal import *
 import re, string
+from functools import reduce  
 
 
 app = Flask(__name__)
@@ -938,24 +939,41 @@ def solvesm():
  
   return Response(json.dumps(output), mimetype='application/json')
 
+def lcm(a, b):
+    if a > b:
+        greater = a
+    else:
+        greater = b
+
+    while True:
+        if greater % a == 0 and greater % b == 0:
+            lcm = greater
+            break
+        greater += 1
+
+    return lcm
+
+def get_lcm_for(your_list):
+    return reduce(lambda x, y: lcm(x, y), your_list)
 
   
 def sbank(n, officers, status):
   # print(n, status)
   min = (-1,999999)
-  for (i, officer) in enumerate(officers):
-    if status[i] == 0:
-      if officer < min[1]:
-        min = (i, officer)
+  while min[0] == -1:
+      for (i, officer) in enumerate(officers):
+        if status[i] == 0:
+          if officer < min[1]:
+            min = (i, officer)
+      if min[0] != -1:
+        break
+      for (i, time) in enumerate(status):
+        if (time > 0):
+          status[i] = time -1
 
   if n == 1 and min[0] != -1:
     return min[0] + 1
   else:
-    if (min[0] == -1):
-      for (i, time) in enumerate(status):
-        if (time > 0):
-          status[i] = time -1
-      return sbank(n, officers, status)
     status[min[0]] = min[1]
     return sbank(n-1, officers, status)
 
@@ -963,10 +981,13 @@ def sbank(n, officers, status):
 def solvebank():
   input = request.get_json(force=True)
   n = input["N"]
-  if n > 1000: 
-    return
   officers = input["branch_officers_timings"]
   print(n, officers)
+
+  n %= get_lcm_for(officers)
+  
+  if n == 0:
+    n = get_lcm_for(officers)
   output = sbank(n, officers, [0] * len(officers))
   print(output)
   return {"answer": output}
