@@ -977,9 +977,8 @@ def sbank(n, officers, status):
     while True:
       mini = (-1,999999)
       for (i, officer) in enumerate(officers):
-        if status[i] == 0:
-          if officer < mini[1]:
-            mini = (i, officer)
+        if status[i] == 0 and i == -1:
+          mini = (i, officer)
 
       if mini[0] == -1:
         break
