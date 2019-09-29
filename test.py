@@ -8,6 +8,7 @@ import random
 import math
 from decimal import *
 import re, string
+from functools import reduce  
 
 
 app = Flask(__name__)
@@ -930,6 +931,22 @@ def solvesm():
  
   return Response(json.dumps(output), mimetype='application/json')
 
+def lcm(a, b):
+    if a > b:
+        greater = a
+    else:
+        greater = b
+
+    while True:
+        if greater % a == 0 and greater % b == 0:
+            lcm = greater
+            break
+        greater += 1
+
+    return lcm
+
+def get_lcm_for(your_list):
+    return reduce(lambda x, y: lcm(x, y), your_list)
 
   
 def sbank(n, officers, status):
@@ -956,8 +973,7 @@ def sbank(n, officers, status):
 def solvebank():
   input = request.get_json(force=True)
   n = input["N"]
-  if n > 1000: 
-    return
+  n %= get_lcm_for(officers)
   officers = input["branch_officers_timings"]
   print(n, officers)
   output = sbank(n, officers, [0] * len(officers))
