@@ -977,13 +977,13 @@ def sbank(n, officers, status):
           if officer < mini[1]:
             mini = (i, officer)
 
+      if mini[0] == -1:
+        break
       status[mini[0]] = mini[1]
       n -= 1
       
       if n == 1 and mini[0] != -1:
         return mini[0] + 1
-      if mini[0] == -1:
-        break
 
 
     minimum = min(status)
