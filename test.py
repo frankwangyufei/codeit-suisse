@@ -848,3 +848,9 @@ def typing():
             bO = order
     ans = {"cost":bTime,"steps":bO}
     return ans
+
+@app.route('/defuse', methods=['POST'])
+def defuse():
+    types = request.get_json(force=True)
+    print(types)
+    return 3
