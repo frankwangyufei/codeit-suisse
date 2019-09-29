@@ -894,7 +894,7 @@ def defuse():
                     if (password[i+length//2] == -1):
                         temp += 1
                 if (temp != -1):
-                    while (len(lookup) < temp):
+                    while (len(lookup) <= temp):
                         lookup.append(lookup[len(lookup)-1]*k)
                     count += lookup[temp]
                 #print(count,length,i,j)   
