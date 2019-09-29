@@ -901,7 +901,7 @@ def defuse():
         #print('c',case,count,password,n)
         output.append(count)
     print(output)
-    return str(output)
+    return Response(json.dumps(output), mimetype='application/json')
 
 
 @app.route('/encryption', methods=['POST'])    
