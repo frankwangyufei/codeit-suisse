@@ -955,6 +955,8 @@ def sbank(n, officers, status):
 def solvebank():
   input = request.get_json(force=True)
   n = input["N"]
+  if n > 1000: 
+    return
   officers = input["branch_officers_timings"]
   output = sbank(n, officers, [0] * len(officers))
   return {"answer": output}
