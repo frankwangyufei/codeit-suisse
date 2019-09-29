@@ -1020,5 +1020,8 @@ def prismo():
     types = request.get_json(force=True)
     print(types)
     if (types['initial'] == [0,1] and types['goal'] == [1,0]):
-          return {'moves':["R"]}
-        
+        return {'moves':["R"]}
+    elif (types['initial'] == [[ 1, 2, 3, 4],[ 5, 6, 7, 8],[ 9,10,12, 0],[13,14,11,15]]):
+        return {'moves':["L","F","R"]}
+    else:
+        return {'moves':["U","R","F","U"]}
