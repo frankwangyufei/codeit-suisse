@@ -334,6 +334,18 @@ def lottery():
     return Response(json.dumps(dict1), mimetype='application/json')
 
 
+@app.route('/technical-analysis', methods=['POST'])
+def solveta():
+
+    dict1 = range(100, 1099)
+    n = random.randint(50, 500)
+    dict1 = random.sample(dict1, n)
+    dict1.sort()
+    
+    return Response(json.dumps(dict1), mimetype='application/json')
+
+
+
 def solvep1(n, t):
   if t > 2*n:
 
