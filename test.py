@@ -986,8 +986,8 @@ def sbank(n, officers, status):
         break
 
 
+    minimum = min(status)
     for (i, time) in enumerate(status):
-      minimum = min(status)
       if (time > 0):
         status[i] = time - minimum
       print(status)
