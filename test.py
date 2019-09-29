@@ -632,9 +632,9 @@ def weddingnightmare():
       result["test_case"] = case["test_case"]
       guests = [i for i in range(case["guests"])]
       print(guests)
-      print("friends: " + case["friends"])
-      print("families: " + case["families"])
-      print("enemies: " + case["enemies"])
+      print("friends: " + str(case["friends"]))
+      print("families: " + str(case["families"]))
+      print("enemies: " + str(case["enemies"]))
       for pair in case["friends"]:
         union(guests, pair[0]-1, pair[1]-1)
 
@@ -872,4 +872,4 @@ def typing():
 def defuse():
     types = request.get_json(force=True)
     print(types)
-    return str(3)
+    return 3
