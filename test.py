@@ -894,9 +894,6 @@ def defuse():
                 if (temp != -1):
                     if (password[i+length//2] == -1):
                         temp += 1
-                    for others in range(i):
-                        if (password[others] == -1):
-                            temp += 1
                     for others in range(i+length,n):
                         if (password[others] == -1):
                             temp += 1
