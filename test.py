@@ -921,7 +921,7 @@ def solvesm():
     while i < len(text):
 
       result[j::n] = text[i:i + len(result[j::n])]
-      i += len(result[0::n])
+      i += len(result[j::n])
       j += 1
       print(result)
     print("".join(result))
