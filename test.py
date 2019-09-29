@@ -987,9 +987,10 @@ def sbank(n, officers, status):
 
 
     for (i, time) in enumerate(status):
-
+      minimum = min(status)
       if (time > 0):
-        status[i] = time - min(status)
+        status[i] = time - minimum
+      print(status)
     
 @app.route('/bankbranch', methods=['POST'])
 def solvebank():
