@@ -7,6 +7,7 @@ from string import punctuation
 import random
 import math
 from decimal import *
+import re, string
 
 
 app = Flask(__name__)
@@ -900,3 +901,31 @@ def defuse():
         #print('c',case,count,password,n)
         output.append(count)
     return str(output)
+
+
+@app.route('/encryption', methods=['POST'])    
+def solvesm():
+  input = request.get_json(force=True)
+  pattern = re.compile('[\W_]+')
+  output = []
+  for case in input:
+    n = case["n"]
+    text = case["text"]
+    text = text.replace(' ', '')
+    text = text.upper()
+    text = pattern.sub('', text)
+    text = list(text)
+    result = [' '] * len(text)
+    i = 0
+    j = 0
+    while i < len(text):
+
+      result[j::n] = text[i:i + len(result[j::n])]
+      i += len(result[0::n])
+      j += 1
+      print(result)
+    print("".join(result))
+    output.append("".join(result))
+ 
+  return Response(json.dumps(output), mimetype='application/json')
+
