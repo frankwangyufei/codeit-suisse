@@ -972,10 +972,6 @@ def sbank(n, officers, status):
   while n > 0:
     while True:
       min = (-1,999999)
-      if n == 1:
-        print("asdfa")
-        print(status)
-        print(officers)
       for (i, officer) in enumerate(officers):
         if status[i] == 0:
           if officer < min[1]:
@@ -989,12 +985,12 @@ def sbank(n, officers, status):
       if min[0] == -1:
         break
 
-    print(status)
-    for (i, time) in enumerate(status):
-      if (time > 0):
-        status[i] = time -1
-    print(status)
 
+    for (i, time) in enumerate(status):
+
+      if (time > 0):
+        status[i] = time - min(status)
+    
 @app.route('/bankbranch', methods=['POST'])
 def solvebank():
   input = request.get_json(force=True)
