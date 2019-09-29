@@ -1014,5 +1014,8 @@ def solvebank():
   output = sbank(n, officers, [0] * len(officers))
   print(output)
   return {"answer": output}
-
-
+   
+@app.route('/prismo', methods=['POST'])
+def prismo():
+    types = request.get_json(force=True)
+    print(types)
