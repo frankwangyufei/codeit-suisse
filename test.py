@@ -904,6 +904,7 @@ def defuse():
     return Response(json.dumps(output), mimetype='application/json')
 
     
+@app.route('/encryption', methods=['POST'])
 def solvesm():
   input = request.get_json(force=True)
   pattern = re.compile('[\W_]+')
@@ -931,7 +932,6 @@ def solvesm():
 
 
   
-@app.route('/bankbranch', methods=['POST'])
 def sbank(n, officers, status):
   # print(n, status)
   min = (-1,999999)
@@ -951,6 +951,7 @@ def sbank(n, officers, status):
     status[min[0]] = min[1]
     return sbank(n-1, officers, status)
 
+@app.route('/bankbranch', methods=['POST'])
 def solvebank():
   input = request.get_json(force=True)
   n = input["N"]
