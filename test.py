@@ -939,22 +939,30 @@ def solvesm():
  
   return Response(json.dumps(output), mimetype='application/json')
 
-def lcm(a, b):
-    if a > b:
-        greater = a
-    else:
-        greater = b
 
-    while True:
-        if greater % a == 0 and greater % b == 0:
-            lcm = greater
-            break
-        greater += 1
+def findlcm(a, b):
 
-    return lcm
-
+    if(a>b): 
+        num = a 
+        den = b 
+    else: 
+        num = b 
+        den = a 
+    rem = num % den 
+    while(rem != 0): 
+        num = den 
+        den = rem 
+        rem = num % den 
+    gcd = den 
+    lcm = int(int(a * b)/int(gcd)) 
+    return lcm 
 def get_lcm_for(your_list):
-    return reduce(lambda x, y: lcm(x, y), your_list)
+
+  lcm = findlcm(your_list[0], your_list[1])
+  for i in range(2, len(your_list)):
+    lcm = findlcm(lcm, your_list[i])
+
+  return lcm
 
   
 def sbank(n, officers, status):
@@ -985,7 +993,7 @@ def solvebank():
   print(n, officers)
 
   n %= get_lcm_for(officers)
-  
+
   if n == 0:
     n = get_lcm_for(officers)
   output = sbank(n, officers, [0] * len(officers))
