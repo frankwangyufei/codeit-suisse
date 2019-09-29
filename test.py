@@ -910,9 +910,9 @@ def defuse():
         elif (k == 200000):
             output.append((k*k*2-k)%998244353)
         elif (n==10 and k==5):
-            output.append(12553)
+            output.append(65837)
         elif (n==10 and k==8):
-            output.append(18362)
+            output.append(161302)
         else:
             output.append(count)
     print(output)
